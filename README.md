@@ -1,7 +1,6 @@
 # **0x16. C - Simple Shell**
 _simple UNIX command interpreter._
 ___
-![alt text](https://s3.amazonaws.com/intranet-projects-files/holbertonschool-low_level_programming/235/shell.jpeg)
 
 ## Output
 Unless specified otherwise, your program must have the exact same output as sh (/bin/sh) as well as the exact same error output.

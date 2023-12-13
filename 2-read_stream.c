@@ -13,7 +13,7 @@ char *read_stream(void)
 	if (len == EOF)
 	{
 		free(lineptr);
-		exit(EXIT_FAILURE);
+		exit(EXIT_SUCCESS);
 	}
 	if (len == -1)
 	{
