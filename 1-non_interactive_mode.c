@@ -9,15 +9,12 @@ void non_interactive_mode(void)
 	int err_check = 0;
 	int running = 1;
 
-	while (1)
+	line = read_stream();
+	cmds = tokeniz(line);
+	err_check = excutcmd(cmds);
+	if (err_check > 0)
 	{
-		line = read_stream();
-		cmds = tokeniz(line);
-		err_check = excutcmd(cmds);
-		if (err_check > 0)
-		{
-			error(err_check, cmds, running);
-		}
+		error(err_check, cmds, running);
 	}
 	free(line);
 	free(cmds);

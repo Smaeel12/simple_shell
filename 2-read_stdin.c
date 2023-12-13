@@ -37,7 +37,7 @@ char *read_stdin(void)
 	}
 	if (len == -1)
 	{
-		perror("getline: ");
+		perror("getline failed");
 		exit(EXIT_FAILURE);
 	}
 

@@ -15,7 +15,9 @@ char **tokeniz(char *line)
 	tokens = malloc(capacity * sizeof(char *));
 	if (tokens == NULL)
 	{
+		perror("tokeniz failed");
 		free(tokens);
+		free(line);
 		return (NULL);
 	}
 
@@ -31,13 +33,14 @@ char **tokeniz(char *line)
 			tokens = realloc(tokens, capacity * sizeof(char *));
 			if (tokens == NULL)
 			{
+				perror("realloc failed");
+				free(line);
 				free(tokens);
 				return (NULL);
 			}
 		}
 		token = _strtok(NULL, " \n");
 	}
-
 	tokens[length] = NULL;
 	return (tokens);
 }
