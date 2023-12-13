@@ -22,7 +22,7 @@ void interactive_mode(void)
 	signal(SIGINT, signal_handler);
 	while (1)
 	{
-		write(STDOUT_FILENO, "#cisfun$ ", 10);
+		write(STDOUT_FILENO, "$ ", 2);
 		line = read_stdin();
 		if (line != NULL)
 		{
