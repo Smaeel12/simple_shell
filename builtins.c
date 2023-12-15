@@ -46,8 +46,7 @@ int env(char **cmd)
 			write(STDOUT_FILENO, "\n", 1);
 
 		}
-	}
-	
+	}	
 	free(*cmd);
 	*cmd = NULL;
 	return (0);
