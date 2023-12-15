@@ -4,7 +4,7 @@
  * @path: binary executable.
  * @cmd: an array of pointers to strings passed to the new program
  * as its command-line arguments.
- * Return: On success, return 0, on error -1 is returned
+ * Return: On success, return 0, on error 1 is returned
  */
 int excut_cmd(char *path, char **cmd)
 {
@@ -15,11 +15,14 @@ int excut_cmd(char *path, char **cmd)
 	{
 		status = execve(path, cmd, environ);
 		if (status == -1)
+		{
 			return (1);
+		}
 	}
 	else if (pid < 0)
 	{
 		perror("fork");
+		return (1);
 	}
 	else
 	{
@@ -92,7 +95,6 @@ char *find_command_path(const char *cmd)
 		}
 		free(path_copy);
 	}
-
 	return (NULL);
 }
 
@@ -118,7 +120,7 @@ int excutcmd(char **cmd)
 				_strlen(builtin_cmds[i].name));
 		if (comp == 0)
 		{
-			return (builtin_cmds[i].f(cmd));
+			builtin_cmds[i].f(cmd);
 		}
 	}
 
@@ -132,6 +134,10 @@ int excutcmd(char **cmd)
 		}
 		free(path);
 		return (1);
+	}
+	else
+	{
+		perror("path not found 2");
 	}
 	return (1);
 }

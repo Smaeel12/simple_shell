@@ -27,17 +27,15 @@ char *read_stdin(void);
 char *read_stream(void);
 char **tokeniz(char *line);
 int excutcmd(char **cmd);
-void errors(char *s);
 char *_strdup(char *s);
 int _strlen(const char *s);
 int _strncmp(const char *str1, const char *str2, int n);
 char *_getenv(const char *name);
-void error(int status, char **s, int running);
 void _itoa(int num, char *str);
 char *_strcat(char *dest, char *src);
-int end(char **cmd);
+void end(char **cmd);
 char *_strcpy(char *dest, char *src);
-int env(char **cmd);
+void env(char **cmd);
 char *_strtok(char *str, char *delim);
 
 /*---STRUCTRES---*/
@@ -49,7 +47,7 @@ char *_strtok(char *str, char *delim);
 typedef struct built
 {
 	char *name;
-	int (*f)(char **);
+	void (*f)(char **);
 } built_in;
 
 #endif

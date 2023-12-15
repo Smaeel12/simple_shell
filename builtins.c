@@ -7,14 +7,16 @@
  * Return: On Success nothing returned. return 2 in failure
  * as status to error() function in case of invalid exit status
  */
-int end(char **cmd)
+void end(char **cmd)
 {
 	if (cmd[1] != NULL)
 	{
 		int n = atoi(cmd[1]);
 
-		if (n == 0 && *cmd[1] != '0')
-			return (2);
+		if (n < 0 && *cmd[1] == '-')
+			exit(2);
+		else
+			exit(n);
 		free(cmd);
 		exit(n);
 	}
@@ -26,7 +28,7 @@ int end(char **cmd)
  * @cmd: the env command.
  * Return: 0 àn success.
  */
-int env(char **cmd)
+void env(char **cmd)
 {
 	int i;
 	char *env_var;
@@ -47,5 +49,4 @@ int env(char **cmd)
 		}
 	}
 	*cmd = NULL;
-	return (0);
 }
