@@ -1,5 +1,6 @@
 #include "shell.h"
-#include <ctype.h>
+#include <stdlib.h>
+#include <unistd.h>
 /**
  * end - function causes normal process termination and exit the program,
  * and write exit status on success
@@ -47,6 +48,7 @@ void env(char **cmd)
 			write(STDOUT_FILENO, "\n", 1);
 
 		}
-	}
+	}	
+	free(*cmd);
 	*cmd = NULL;
 }
