@@ -1,10 +1,15 @@
 #include "shell.h"
 /**
  * main - run the program.
+ * @ac: count.
+ * @av: vector.
  * Return: 0 always.
  */
-int main(void)
+int main(int ac, char **av)
 {
+	(void) ac;
+
+	progname = av[0];
 	if (isatty(STDIN_FILENO) == 1)
 	{
 		interactive_mode();

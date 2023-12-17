@@ -5,6 +5,8 @@ void interactive_mode(void);
 void non_interactive_mode(void);
 
 /*---MACROS---*/
+char *progname;
+int num_line;
 extern char **environ;
 #define MAX_NUM 10
 #define MAX_LENGHT 256
@@ -37,6 +39,7 @@ void end(char **cmd);
 char *_strcpy(char *dest, char *src);
 void env(char **cmd);
 char *_strtok(char *str, char *delim);
+void error(char *cmd, int value);
 
 /*---STRUCTRES---*/
 /**

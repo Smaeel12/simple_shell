@@ -12,17 +12,16 @@ void end(char **cmd)
 {
 	if (cmd[1] != NULL)
 	{
-		int n = atoi(cmd[1]);
-
-		if (n < 0 && *cmd[1] == '-')
-			exit(2);
-		else
-			exit(n);
-		free(cmd);
-		exit(n);
+		if (atoi(cmd[1]) < 0)
+		{
+			error(cmd[0], atoi(cmd[1]));
+			return;
+		}
+		exit(atoi(cmd[1]));
 	}
+	else
+		exit(EXIT_SUCCESS);
 	free(cmd);
-	exit(EXIT_SUCCESS);
 }
 /**
  * env - function that Display environment variables.
@@ -48,7 +47,6 @@ void env(char **cmd)
 			write(STDOUT_FILENO, "\n", 1);
 
 		}
-	}	
+	}
 	free(*cmd);
-	*cmd = NULL;
 }

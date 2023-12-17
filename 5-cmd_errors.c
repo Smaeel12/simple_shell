@@ -1,32 +1,40 @@
 #include "shell.h"
+#include <stdarg.h>
 /**
- * program - function that look for the program name.
- * Return: the program name in success, and NULL if it fails.
+ * print - func
+ * @param_num: number
+ * Return: 0
  */
-char *program(void)
+int print(int param_num, ...)
 {
-	char *progname = NULL;
-	char buffer[BUFFER_SIZE], pid[MAX_NUM], procpath[MAX_LENGHT] = "/proc/";
-	int fp;
+	char *arg;
+	int i;
+	va_list params;
 
-	_itoa(getpid(), pid);
-	_strcat(procpath, pid);
-	_strcat(procpath, "/cmdline");
-
-	fp = open(procpath, O_RDONLY);
-	if (fp != -1)
+	va_start(params, param_num);
+	for (i = 0; i < param_num; i++)
 	{
-		int nb = read(fp, buffer, sizeof(progname));
-
-		if (nb != -1)
-		{
-			progname = malloc(nb * sizeof(char) + 1);
-			strncpy(progname, buffer, nb);
-			progname[nb] = '\0';
-			close(fp);
-			return (progname);
-		}
-		close(fp);
+		arg = va_arg(params, char *);
+		write(STDERR_FILENO, arg, _strlen(arg));
+		if (i < param_num - 1)
+			write(STDERR_FILENO, ": ", 2);
 	}
-	return (NULL);
+	va_end(params);
+	write(STDERR_FILENO, "\n", 1);
+	return (0);
+}
+/**
+ * error - error func
+ * @cmd: command
+ * @value: exit value
+ */
+void error(char *cmd, int value)
+{
+	char *num_line_c = "1";
+	char *value_c = "-98";
+
+	if (value == 0)
+		print(4, progname, num_line_c, cmd, "not found");
+	else
+		print(5, progname, num_line_c, cmd, "Illegal number", value_c);
 }

@@ -20,6 +20,7 @@ void interactive_mode(void)
 	char **cmds;
 
 	signal(SIGINT, signal_handler);
+	num_line = 1;
 	while (1)
 	{
 		write(STDOUT_FILENO, "$ ", 2);
@@ -31,6 +32,7 @@ void interactive_mode(void)
 			free(line);
 			free(cmds);
 		}
+		num_line++;
 	}
 	free(line);
 }

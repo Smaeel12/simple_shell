@@ -59,19 +59,20 @@ char *find_command_path(const char *cmd)
 {
 	char *excutable = NULL;
 
-	if (cmd[0] == '/')
+	if (cmd[0] == '/' || cmd[0] == '.')
 	{
 		if (access_path(cmd) == 0)
 		{
 			excutable = _strdup((char *) cmd);
 			return (excutable);
 		}
+		else
+			perror("can't be accessed");
 	}
 	else
 	{
-		char *path = _getenv("PATH");
+		char *path = _getenv("PATH"), *dir;
 		char *path_copy = _strdup(path);
-		char *dir;
 
 		dir = strtok(path_copy, ":");
 		while (dir != NULL)
@@ -121,9 +122,9 @@ int excutcmd(char **cmd)
 		if (comp == 0)
 		{
 			builtin_cmds[i].f(cmd);
+			return (0);
 		}
 	}
-
 	path = find_command_path(cmd[0]);
 	if (path != NULL)
 	{
@@ -137,7 +138,7 @@ int excutcmd(char **cmd)
 	}
 	else
 	{
-		perror("path not found 2");
+		error(cmd[0], 0);
 	}
 	return (1);
 }
