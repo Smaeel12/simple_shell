@@ -1,6 +1,7 @@
 #include "../shell.h"
 
 char* find_executable(const char* command) {
+    int x;
     char* path = getenv("PATH");
     if (path == NULL) {
         return NULL;
@@ -11,10 +12,10 @@ char* find_executable(const char* command) {
         char* executable = (char*)malloc(strlen(dir) + strlen(command) + 2);
         sprintf(executable, "%s/%s", dir, command);
 
-        if (access(executable, X_OK) == 0) {
+        if (x = access(executable, X_OK) == 0) {
             return executable;
         }
-
+	printf("errno access: %i\n", errno);
         free(executable);
         dir = strtok(NULL, ":");
     }
@@ -50,7 +51,7 @@ int _excutcmd(char **cmd) {
             waitpid(pid, &status, WUNTRACED);
         } while (!WIFEXITED(status) && !WIFSIGNALED(status));
     }
-    free(excutable);
+    free(ls_executable);
     return 0;
 }
 

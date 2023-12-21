@@ -26,15 +26,23 @@ int print(int param_num, ...)
 /**
  * error - error func
  * @cmd: command
+ * @exit_status: exit status
  * @value: exit value
  */
-void error(char *cmd, int value)
+void error(char *cmd, int value, int exit_status)
 {
-	char *num_line_c = "1";
-	char *value_c = "-98";
+	char num_line_c[5];
+	char value_c[5];
 
+	_itoa(num_line, num_line_c);
+	_itoa(value, value_c);
 	if (value == 0)
+	{
 		print(4, progname, num_line_c, cmd, "not found");
+		if (isatty(STDIN_FILENO) != 1)
+			exit(exit_status);
+	}
 	else
 		print(5, progname, num_line_c, cmd, "Illegal number", value_c);
+
 }

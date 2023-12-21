@@ -14,7 +14,7 @@ void end(char **cmd)
 	{
 		if (atoi(cmd[1]) < 0)
 		{
-			error(cmd[0], atoi(cmd[1]));
+			error(cmd[0], atoi(cmd[1]), 0);
 			return;
 		}
 		exit(atoi(cmd[1]));

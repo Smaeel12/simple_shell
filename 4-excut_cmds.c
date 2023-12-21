@@ -1,4 +1,6 @@
 #include "shell.h"
+#include <sys/types.h>
+#include <sys/stat.h>
 /**
  * excut_cmd - function that executes the program referred to by (path).
  * @path: binary executable.
@@ -138,7 +140,7 @@ int excutcmd(char **cmd)
 	}
 	else
 	{
-		error(cmd[0], 0);
+		error(cmd[0], 0, 127);
 	}
 	return (1);
 }

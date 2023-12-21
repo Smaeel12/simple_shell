@@ -1,5 +1,4 @@
 #include "shell.h"
-#include <errno.h>
 /**
  * non_interactive_mode - the program in the non interactive mode.
  */

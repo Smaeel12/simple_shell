@@ -39,7 +39,7 @@ void end(char **cmd);
 char *_strcpy(char *dest, char *src);
 void env(char **cmd);
 char *_strtok(char *str, char *delim);
-void error(char *cmd, int value);
+void error(char *cmd, int value, int exit_status);
 int line_check(char *line);
 
 /*---STRUCTRES---*/
