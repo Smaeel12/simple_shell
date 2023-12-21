@@ -132,6 +132,8 @@ int excutcmd(char **cmd)
 	{
 		if (excut_cmd(path, cmd) == 0)
 		{
+			if (errno == 2 && isatty(STDIN_FILENO) == 0)
+				exit(2);
 			free(path);
 			return (0);
 		}
