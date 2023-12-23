@@ -18,7 +18,6 @@ char *_getenv(const char *name)
 	}
 	return (NULL);
 }
-
 /**
  * _itoa - function that converts an int to a string pointed to by str.
  * @str: The converted value.

@@ -8,6 +8,7 @@ void non_interactive_mode(void);
 char *progname;
 int num_line;
 extern char **environ;
+
 #define MAX_NUM 10
 #define MAX_LENGHT 256
 #define BUFFER_SIZE 1024
@@ -17,6 +18,8 @@ extern char **environ;
 #include <stdlib.h>
 #include <unistd.h>
 #include <string.h>
+#include <stddef.h>
+#include <stdarg.h>
 #include <sys/types.h>
 #include <sys/wait.h>
 #include <sys/stat.h>

@@ -1,6 +1,4 @@
 #include "shell.h"
-#include <stdlib.h>
-#include <unistd.h>
 /**
  * end - function causes normal process termination and exit the program,
  * and write exit status on success

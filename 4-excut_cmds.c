@@ -1,6 +1,4 @@
 #include "shell.h"
-#include <sys/types.h>
-#include <sys/stat.h>
 /**
  * excut_cmd - function that executes the program referred to by (path).
  * @path: binary executable.
@@ -45,11 +43,42 @@ int access_path(const char *cmd)
 	int result = access(cmd, X_OK);
 
 	if (result == -1)
-	{
 		return (-1);
-	}
 	else
 		return (0);
+}
+/**
+ * _path_iter - func
+ * @excutable: excutable
+ * @path_copy: path
+ * @cmd: cmd
+ * Return: string
+ */
+char *_path_iter(char *excutable, char *path_copy, const char *cmd)
+{
+	char *dir = strtok(path_copy, ":");
+
+	while (dir != NULL)
+	{
+		excutable = malloc(_strlen(dir) + _strlen(cmd) + 2);
+		if (excutable == NULL)
+		{
+			free(excutable);
+			return (NULL);
+		}
+		_strcpy(excutable, dir);
+		_strcat(excutable, "/");
+		_strcat(excutable, (char *)cmd);
+		if (access_path(excutable) == 0)
+		{
+			free(path_copy);
+			return (excutable);
+		}
+		free(excutable);
+		dir = strtok(NULL, ":");
+	}
+	free(path_copy);
+	return (NULL);
 }
 /**
  * find_command_path - function that look for commands.
@@ -73,30 +102,11 @@ char *find_command_path(const char *cmd)
 	}
 	else
 	{
-		char *path = _getenv("PATH"), *dir;
+		char *path = _getenv("PATH");
 		char *path_copy = _strdup(path);
 
-		dir = strtok(path_copy, ":");
-		while (dir != NULL)
-		{
-			excutable = malloc(_strlen(dir) + _strlen(cmd) + 2);
-			if (excutable == NULL)
-			{
-				free(excutable);
-				return (NULL);
-			}
-			_strcpy(excutable, dir);
-			_strcat(excutable, "/");
-			_strcat(excutable, (char *) cmd);
-			if (access_path(excutable) == 0)
-			{
-				free(path_copy);
-				return (excutable);
-			}
-			free(excutable);
-			dir = strtok(NULL, ":");
-		}
-		free(path_copy);
+		if (path_copy != NULL)
+			_path_iter(excutable, path_copy, cmd);
 	}
 	return (NULL);
 }
@@ -131,18 +141,9 @@ int excutcmd(char **cmd)
 	if (path != NULL)
 	{
 		if (excut_cmd(path, cmd) == 0)
-		{
-			if (errno == 25)
-				exit(2);
-			free(path);
 			return (0);
-		}
 		free(path);
 		return (1);
-	}
-	else
-	{
-		error(cmd[0], 0, 127);
 	}
 	return (1);
 }

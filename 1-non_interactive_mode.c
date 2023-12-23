@@ -6,6 +6,7 @@ void non_interactive_mode(void)
 {
 	char *line;
 	char **cmds;
+	int exec_status;
 
 	num_line = 1;
 	while (1)
@@ -14,7 +15,9 @@ void non_interactive_mode(void)
 		if (line != NULL)
 		{
 			cmds = tokeniz(line);
-			excutcmd(cmds);
+			exec_status = excutcmd(cmds);
+			if (exec_status == 1)
+				error(cmds[0], 0, 127);
 			free(line);
 			free(cmds);
 		}

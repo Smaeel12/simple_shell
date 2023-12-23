@@ -1,5 +1,4 @@
 #include "shell.h"
-#include <stdarg.h>
 /**
  * print - func
  * @param_num: number
