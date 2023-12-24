@@ -56,8 +56,9 @@ int access_path(const char *cmd)
  */
 char *_path_iter(char *excutable, char *path_copy, const char *cmd)
 {
-	char *dir = strtok(path_copy, ":");
+	char *dir;
 
+	dir = strtok(path_copy, ":");
 	while (dir != NULL)
 	{
 		excutable = malloc(_strlen(dir) + _strlen(cmd) + 2);
@@ -93,12 +94,7 @@ char *find_command_path(const char *cmd)
 	if (cmd[0] == '/' || cmd[0] == '.')
 	{
 		if (access_path(cmd) == 0)
-		{
 			excutable = _strdup((char *) cmd);
-			return (excutable);
-		}
-		else
-			perror("can't be accessed");
 	}
 	else
 	{
@@ -106,9 +102,9 @@ char *find_command_path(const char *cmd)
 		char *path_copy = _strdup(path);
 
 		if (path_copy != NULL)
-			_path_iter(excutable, path_copy, cmd);
+			excutable = _path_iter(excutable, path_copy, cmd);
 	}
-	return (NULL);
+	return (excutable);
 }
 
 /**
@@ -141,7 +137,10 @@ int excutcmd(char **cmd)
 	if (path != NULL)
 	{
 		if (excut_cmd(path, cmd) == 0)
+		{
+			free(path);
 			return (0);
+		}
 		free(path);
 		return (1);
 	}

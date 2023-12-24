@@ -21,5 +21,8 @@ void non_interactive_mode(void)
 			free(line);
 			free(cmds);
 		}
+
 	}
+	free(line);
+	free(cmds);
 }
